@@ -11,6 +11,9 @@ import com.example.ECommerce.transformer.SellerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class SellerServiceImpl implements SellerService {
     @Autowired
@@ -51,6 +54,67 @@ public class SellerServiceImpl implements SellerService {
         }catch (Exception e){
             throw new InvalidSellerException("Invalid Seller Id");
         }
+
+        SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(seller);
+
+        return sellerResponseDto;
+    }
+
+    @Override
+    public List<SellerResponseDto> getAllSellers() {
+        List<Seller>sellerList=sellerRepository.findAll();
+        List<SellerResponseDto>sellerResponseDtoList=new ArrayList<>();
+        for(Seller seller:sellerList){
+            SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(seller);
+            sellerResponseDtoList.add(sellerResponseDto);
+        }
+        return sellerResponseDtoList;
+    }
+
+    @Override
+    public SellerResponseDto deleteSellerByEmailId(String emailId) throws InvalidSellerException {
+
+        if(sellerRepository.findByEmailId(emailId) == null){
+            throw new InvalidSellerException("Invalid Seller EmailId");
+        }
+        SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(sellerRepository.findByEmailId(emailId));
+        sellerRepository.delete(sellerRepository.findByEmailId(emailId));
+
+        return sellerResponseDto;
+    }
+
+    @Override
+    public SellerResponseDto deleteSellerById(int id) throws InvalidSellerException{
+        if(sellerRepository.findById(id).get() == null){
+            throw new InvalidSellerException("Invalid SellerId");
+        }
+        SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(sellerRepository.findById(id).get());
+        sellerRepository.delete(sellerRepository.findById(id).get());
+
+        return sellerResponseDto;
+    }
+
+    @Override
+    public List<SellerResponseDto> getSellersOfAge(int age) {
+        List<Seller>sellerList=sellerRepository.findByAge(age);
+        List<SellerResponseDto>sellerResponseDtoList=new ArrayList<>();
+        for(Seller seller:sellerList){
+            SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(seller);
+            sellerResponseDtoList.add(sellerResponseDto);
+        }
+        return sellerResponseDtoList;
+    }
+
+    @Override
+    public SellerResponseDto updateSellerUsingEmailId(String emailId, SellerRequestDto sellerRequestDto) throws InvalidSellerException {
+        Seller seller;
+        try {
+            seller=sellerRepository.findByEmailId(emailId);
+        }catch (Exception e){
+            throw new InvalidSellerException("Invalid Seller EmailId");
+        }
+        seller=SellerTransformer.SellerRequestDtoTOSeller(sellerRequestDto);
+        Seller updatedSeller=sellerRepository.save(seller);
 
         SellerResponseDto sellerResponseDto=SellerTransformer.SellerToSellerResponseDto(seller);
 

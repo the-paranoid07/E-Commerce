@@ -16,6 +16,7 @@ public class ProductTransformer {
                 .quantity(productRequestDto.getQuantity())
                 .productCategory(productRequestDto.getProductCategory())
                 .productStatus(ProductStatus.AVAILABLE)
+                .price(productRequestDto.getProductPrice())
                 .build();
     }
     public static ProductResponseDto ProductToProductResponseDto(Product product){
@@ -24,6 +25,7 @@ public class ProductTransformer {
                 .sellerName(product.getSeller().getName())
                 .productStatus(product.getProductStatus())
                 .quantity(product.getQuantity())
+                .productPrice(product.getPrice())
                 .build();
     }
 }

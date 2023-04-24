@@ -18,6 +18,7 @@ public class ProductRequestDto {
     String productName;
     String description;
     int quantity;
+    int productPrice;
     ProductCategory productCategory;
 
 }

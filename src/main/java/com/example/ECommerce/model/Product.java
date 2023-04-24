@@ -21,6 +21,7 @@ public class Product {
     String name;
     String description;
     int quantity;
+    int price;
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
 

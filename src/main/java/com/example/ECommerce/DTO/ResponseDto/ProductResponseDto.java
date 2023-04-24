@@ -16,6 +16,7 @@ public class ProductResponseDto {
     String sellerName;
 
     int quantity;
+    int productPrice;
 
     ProductStatus productStatus;
 }

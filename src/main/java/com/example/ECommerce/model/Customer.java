@@ -1,12 +1,8 @@
 package com.example.ECommerce.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.aspectj.weaver.ast.Or;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="customer")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
     String name;
     int age;
     String mobNo;
-    String emaidId;
+    @Column(unique = true)
+    String emailId;
     String address;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
