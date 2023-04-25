@@ -3,16 +3,15 @@ package com.example.ECommerce.DTO.ResponseDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class CartResponseDto {
-    String customerName;
-    int numberOfItem;
-    int totalCost;
-    List<ItemResponseDto>items;
+public class ItemResponseDto {
+
+    String productName;
+    int quantity;
+    int priceOfItem;
+    int totalPrice;
 }

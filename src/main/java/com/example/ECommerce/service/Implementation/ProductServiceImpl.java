@@ -13,6 +13,7 @@ import com.example.ECommerce.repository.SellerRepository;
 import com.example.ECommerce.service.ProductService;
 import com.example.ECommerce.transformer.ProductTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -131,6 +132,19 @@ public class ProductServiceImpl implements ProductService {
         }
         return productResponseDtoList;
     }
+
+    @Override
+    public List<ProductResponseDto> getProductsByPriceAndCategory(int price, String category) {
+
+        List<Product>productList=productRepository.getProductsByPriceAndCategory(price,category);
+        List<ProductResponseDto>productResponseDtoList=new ArrayList<>();
+
+        for(Product product:productList){
+            productResponseDtoList.add(ProductTransformer.ProductToProductResponseDto(product));
+        }
+        return productResponseDtoList;
+    }
+
 
     @Override
     public ProductResponseDto getCheapestProductInCategory(ProductCategory category) {

@@ -10,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 
 public enum CardType {
     VISA,
-    MASTER,
+    MASTERCARD,
     RUPAY
 }

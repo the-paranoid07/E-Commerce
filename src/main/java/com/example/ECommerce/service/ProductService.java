@@ -5,6 +5,7 @@ import com.example.ECommerce.DTO.ResponseDto.ProductResponseDto;
 import com.example.ECommerce.enums.ProductCategory;
 import com.example.ECommerce.exception.InvalidProductException;
 import com.example.ECommerce.exception.InvalidSellerException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface ProductService {
     ProductResponseDto deleteProduct(int sellerId, int productId) throws InvalidSellerException, InvalidProductException;
 
     List<ProductResponseDto> getProductsWithQuantityLessThan(int quantity);
+
+    List<ProductResponseDto> getProductsByPriceAndCategory(int price,String category);
 }

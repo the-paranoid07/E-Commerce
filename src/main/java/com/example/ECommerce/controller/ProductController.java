@@ -59,13 +59,18 @@ public class ProductController {
         }
 
     }
+    //get products by price and category
+    @GetMapping("get/{price}/{category}")
+    public ResponseEntity getProductsByPriceAndCategory(
+            @PathVariable("price")int price,
+            @PathVariable("category") String category){
 
-    // return top 5 cheapest products
+        List<ProductResponseDto>productResponseDtoList=productService.getProductsByPriceAndCategory(price,category);
+
+        return new ResponseEntity(productResponseDtoList,HttpStatus.OK);
 
 
-    // return top 5 costliest products
-
-
+    }
     // return all out of stock products
     @GetMapping("/get-outOfStock-products")
     public ResponseEntity getOutOfStockProducts(){
@@ -109,4 +114,11 @@ public class ProductController {
         ProductResponseDto productResponseDto=productService.getCostliestProductInCategory(category);
         return new ResponseEntity(productResponseDto,HttpStatus.OK);
     }
+
+    // return top 5 cheapest products
+
+
+    // return top 5 costliest products
+
+
 }

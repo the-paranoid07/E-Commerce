@@ -11,13 +11,12 @@ import org.hibernate.cfg.AccessType;
 @AllArgsConstructor
 @Table(name="item")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
-    String name;
     int requiredQuantity;
 
     @ManyToOne
@@ -28,7 +27,7 @@ public class Item {
     @JoinColumn
     Ordered order;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     Product product;
 
